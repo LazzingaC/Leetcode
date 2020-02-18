@@ -1,0 +1,44 @@
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        
+        #Think Path:
+        # Solution 1 (Failed - Time Limit Exceeded): Brute force, 2 iterations. TimeC:O(n^2), SpaceC: O(1)
+        rst = []
+        for i in range(len(nums)):
+            nums1, prod = nums[:], 1
+            nums1.pop(i)
+            for temp in nums1:
+                prod *= temp
+            rst.append(prod)
+        return rst
+    
+        # Solution 2 (Failed - no division): Get all product by 1 iteration, + divistion. TimeC: O(n), SpaceC: O(1)
+        rst, prod = [], 1
+        for num in nums:
+            prod *= num
+        for num in nums:
+            rst.append(prod // num)
+        return rst
+        
+        # Note: Please solve it without division and in O(n).
+        # Could you solve it with constant space complexity? 
+        
+        ############################################################################
+        ##### Final solution !!!!! Solution 3: left product * right product #########
+        rst = [1] * len(nums)
+        prod = 1
+        # left product
+        for i in range(len(nums)):
+            rst[i] = prod
+            prod *= nums[i]
+        
+        # right product
+        prod = 1
+        for i in range(len(nums)-1, -1, -1):
+            rst[i] *= prod
+            prod *= nums[i]
+        return rst
+        # test case
+        # rst: [1,2,3,4] -> [1,1,2,6]
+        # rst: [1,1,2,6] -> [1*24=24,1*12=12,2*4=8,6*1=6] prod:24*1=24
+            
