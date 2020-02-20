@@ -2,7 +2,10 @@ class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         
         #Think Path:
-        # Solution 1 (Failed - Time Limit Exceeded): Brute force, 2 iterations. TimeC:O(n^2), SpaceC: O(1)
+        ### Solution 1(Failed - Time Limit Exeeded): Brute force, 2 traversal. 
+        #Time Complexity: O(n^2), 
+        #Space Complexity: O(1)
+        
         rst = []
         for i in range(len(nums)):
             nums1, prod = nums[:], 1
@@ -12,8 +15,10 @@ class Solution:
             rst.append(prod)
         return rst
     
-        # Solution 2 (Failed - no division): Get all product by 1 iteration, + divistion. TimeC: O(n), SpaceC: O(1)
-        rst, prod = [], 1
+        ### Solution 2(Failed - no division to use): Get product of all elements by 1 traversal, + division. 
+        #Time Complexity: O(n), 
+        #Space Complexity: O(1)
+        
         for num in nums:
             prod *= num
         for num in nums:
@@ -24,7 +29,11 @@ class Solution:
         # Could you solve it with constant space complexity? 
         
         ############################################################################
-        ##### Final solution !!!!! Solution 3: left product * right product #########
+        ##### Final solution !!!!! #########
+        #Solution 3: product of all left elements * product all right elements by 2 traversal. 
+        # Time Complexity: O(n), 
+        # Space Complexity: O(1)
+        
         rst = [1] * len(nums)
         prod = 1
         # left product
@@ -38,6 +47,7 @@ class Solution:
             rst[i] *= prod
             prod *= nums[i]
         return rst
+        
         # test case
         # rst: [1,2,3,4] -> [1,1,2,6]
         # rst: [1,1,2,6] -> [1*24=24,1*12=12,2*4=8,6*1=6] prod:24*1=24
